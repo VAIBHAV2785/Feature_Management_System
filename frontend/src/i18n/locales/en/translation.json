@@ -1,0 +1,66 @@
+{
+  "dashboard": {
+    "welcome": "Welcome Back, Vaibhav 👋",
+    "subtitle": "Manage Feature Flags, Rollouts, Environments and User Targeting from one dashboard.",
+
+    "createFeatureFlag": "Create Feature Flag",
+    "viewDocumentation": "View Documentation",
+
+    "featureFlags": "Feature Flags",
+    "environments": "Environments",
+    "evaluations": "Evaluations",
+    "auditLogs": "Audit Logs",
+
+    "healthy": "Healthy",
+
+    "platformStatistics": "Platform Statistics",
+    "featureFlagStatus": "Feature Flag Status",
+
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+
+    "recentActivity": "Recent Activity",
+
+    "createdFeatureFlag": "Created Feature Flag",
+    "updatedEnvironment": "Updated Environment",
+    "addedUserGroup": "Added User Group",
+    "ruleEvaluationCompleted": "Rule Evaluation Completed",
+
+    "admin": "Admin",
+    "system": "System",
+
+    "minutesAgo2": "2 min ago",
+    "minutesAgo15": "15 min ago",
+    "minutesAgo40": "40 min ago",
+    "hourAgo1": "1 hour ago",
+
+    "systemHealth": "System Health",
+
+    "apiServer": "API Server",
+    "postgresql": "PostgreSQL",
+    "authentication": "Authentication",
+    "redisCache": "Redis Cache",
+
+    "online": "Online",
+    "connected": "Connected",
+    "secure": "Secure",
+
+    "runningNormally": "Running Normally",
+
+    "featureFlagAnalytics": "Feature Flag Analytics",
+
+    "environmentDistribution": "Environment Distribution",
+
+    "recentFeatureFlags": "Recent Feature Flags",
+
+    "quickActions": "Quick Actions",
+
+    "addEnvironment": "Add Environment",
+    "newOverride": "New Override"
+  },
+  
+  "navbar": {
+    "title": "Feature Management System"
+  }
+
+}

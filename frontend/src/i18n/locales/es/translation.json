@@ -1,0 +1,66 @@
+{
+  "dashboard": {
+    "welcome": "Bienvenido de nuevo, Vaibhav 👋",
+    "subtitle": "Administra Feature Flags, despliegues, entornos y segmentación de usuarios desde un único panel.",
+
+    "createFeatureFlag": "Crear Feature Flag",
+    "viewDocumentation": "Ver documentación",
+
+    "featureFlags": "Feature Flags",
+    "environments": "Entornos",
+    "evaluations": "Evaluaciones",
+    "auditLogs": "Registros de auditoría",
+
+    "healthy": "Saludable",
+
+    "platformStatistics": "Estadísticas de la plataforma",
+    "featureFlagStatus": "Estado de Feature Flags",
+
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+
+    "recentActivity": "Actividad reciente",
+
+    "createdFeatureFlag": "Feature Flag creado",
+    "updatedEnvironment": "Entorno actualizado",
+    "addedUserGroup": "Grupo de usuarios agregado",
+    "ruleEvaluationCompleted": "Evaluación de reglas completada",
+
+    "admin": "Administrador",
+    "system": "Sistema",
+
+    "minutesAgo2": "Hace 2 min",
+    "minutesAgo15": "Hace 15 min",
+    "minutesAgo40": "Hace 40 min",
+    "hourAgo1": "Hace 1 hora",
+
+    "systemHealth": "Estado del sistema",
+
+    "apiServer": "Servidor API",
+    "postgresql": "PostgreSQL",
+    "authentication": "Autenticación",
+    "redisCache": "Caché Redis",
+
+    "online": "En línea",
+    "connected": "Conectado",
+    "secure": "Seguro",
+
+    "runningNormally": "Funcionando normalmente",
+
+    "featureFlagAnalytics": "Análisis de Feature Flags",
+
+    "environmentDistribution": "Distribución de entornos",
+
+    "recentFeatureFlags": "Feature Flags recientes",
+
+    "quickActions": "Acciones rápidas",
+
+    "addEnvironment": "Agregar entorno",
+    "newOverride": "Nueva anulación"
+  }
+  ,
+  "navbar": {
+    "title": "Sistema de Gestión de Funciones"
+  }
+
+}

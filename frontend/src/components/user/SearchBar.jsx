@@ -1,9 +1,12 @@
 import { Search } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function SearchBar({
   value,
   onChange,
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="relative w-96">
 
@@ -14,7 +17,7 @@ export default function SearchBar({
 
       <input
         type="text"
-        placeholder="Search users..."
+        placeholder={t("users.search")}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full pl-11 pr-4 py-3 border rounded-xl

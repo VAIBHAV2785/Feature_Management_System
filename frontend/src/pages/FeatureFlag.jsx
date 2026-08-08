@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
-import {
-  Plus,
-  RefreshCw,
-  Download,
-} from "lucide-react";
 
-import FeatureFlagTable from "../components/featureFlag/FeatureFlagTable";
-import FeatureFlagForm from "../components/featureFlag/FeatureFlagForm";
-import SearchBar from "../components/featureFlag/SearchBar";
+import SearchBar from "../components/featureflag/SearchBar";
+import FeatureFlagTable from "../components/featureflag/FeatureFlagTable";
+import FeatureFlagForm from "../components/featureflag/FeatureFlagForm";
 import Modal from "../components/common/Modal";
 
 import {
@@ -19,206 +15,270 @@ import {
 } from "../services/featureFlagService";
 
 export default function FeatureFlag() {
+
   const [flags, setFlags] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
 
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [selectedFlag, setSelectedFlag] = useState(null);
 
   useEffect(() => {
+
     loadFlags();
+
   }, []);
 
   async function loadFlags() {
+
     try {
+
       const response = await getFeatureFlags();
+
       setFlags(response.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to load Feature Flags");
-    } finally {
-      setLoading(false);
+
     }
+
+    catch {
+
+      toast.error("Unable to load Feature Flags");
+
+    }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
   }
 
   async function handleSubmit(data) {
+
     try {
+
       if (selectedFlag) {
+
         await updateFeatureFlag(selectedFlag.id, data);
+
         toast.success("Feature Flag Updated");
-      } else {
-        await createFeatureFlag(data);
-        toast.success("Feature Flag Created");
+
       }
 
-      setOpen(false);
-      setSelectedFlag(null);
+      else {
+
+        await createFeatureFlag(data);
+
+        toast.success("Feature Flag Created");
+
+      }
+
+      closeModal();
 
       loadFlags();
-    } catch (error) {
-      console.error(error);
-      toast.error("Operation Failed");
+
     }
+
+    catch {
+
+      toast.error("Operation Failed");
+
+    }
+
   }
 
   async function handleDelete(id) {
+
     if (!window.confirm("Delete this Feature Flag?")) return;
 
     try {
+
       await deleteFeatureFlag(id);
+
       toast.success("Feature Flag Deleted");
+
       loadFlags();
-    } catch (error) {
-      console.error(error);
-      toast.error("Delete Failed");
+
     }
+
+    catch {
+
+      toast.error("Delete Failed");
+
+    }
+
   }
 
   function handleEdit(flag) {
+
     setSelectedFlag(flag);
-    setOpen(true);
+
+    setModalOpen(true);
+
   }
 
   function handleCreate() {
+
     setSelectedFlag(null);
-    setOpen(true);
+
+    setModalOpen(true);
+
   }
 
-  function exportData() {
-    const blob = new Blob(
-      [JSON.stringify(flags, null, 2)],
-      { type: "application/json" }
-    );
+  function closeModal() {
 
-    const url = window.URL.createObjectURL(blob);
+    setSelectedFlag(null);
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "feature_flags.json";
-    a.click();
+    setModalOpen(false);
+
   }
 
-  const filteredFlags = flags.filter((flag) =>
+  const filteredFlags = flags.filter(flag =>
+
     flag.key.toLowerCase().includes(search.toLowerCase())
+
   );
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[60vh]">
 
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
+    return <h2>Loading...</h2>;
 
-      </div>
-    );
   }
 
   return (
-    <div className="space-y-8">
 
-      {/* Hero */}
+    <div>
 
-      <div className="rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-cyan-600 p-8 text-white shadow-2xl">
+      <div
+        style={{
+          display:"flex",
+          justifyContent:"space-between",
+          alignItems:"center",
+          marginBottom:30
+        }}
+      >
 
-        <div className="flex justify-between items-center">
+        <div>
 
-          <div>
-
-            <h1 className="text-4xl font-bold">
-              🚀 Feature Flags
-            </h1>
-
-            <p className="mt-3 text-blue-100 text-lg">
-              Manage rollout, targeting rules and feature releases.
-            </p>
-
-          </div>
-
-          <button
-            onClick={handleCreate}
-            className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-blue-700 shadow-lg transition hover:scale-105"
+          <h1
+            style={{
+              fontSize:34,
+              fontWeight:700
+            }}
           >
-            <Plus size={20} />
-            New Flag
-          </button>
+
+            🚀 Feature Flags
+
+          </h1>
+
+          <p
+            style={{
+              color:"#64748B",
+              marginTop:6
+            }}
+          >
+
+            Manage application feature rollout
+
+          </p>
 
         </div>
 
-      </div>
+        <button
 
-      {/* Toolbar */}
+          onClick={handleCreate}
 
-      <div className="rounded-2xl bg-white p-5 shadow-xl">
+          style={{
 
-        <div className="flex flex-wrap items-center justify-between gap-4">
+            background:"#2563EB",
 
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-          />
+            color:"white",
 
-          <div className="flex items-center gap-3">
+            padding:"14px 24px",
 
-            <button
-              onClick={loadFlags}
-              className="flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2 hover:bg-slate-200"
-            >
-              <RefreshCw size={18} />
-              Refresh
-            </button>
+            borderRadius:12,
 
-            <button
-              onClick={exportData}
-              className="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2 text-white hover:bg-green-700"
-            >
-              <Download size={18} />
-              Export
-            </button>
+            border:"none",
 
-            <div className="rounded-xl bg-blue-100 px-4 py-2 font-semibold text-blue-700">
-              Total : {filteredFlags.length}
-            </div>
+            display:"flex",
 
-          </div>
+            alignItems:"center",
 
-        </div>
+            gap:10,
+
+            fontWeight:600
+
+          }}
+
+        >
+
+          <Plus size={20}/>
+
+          Create Flag
+
+        </button>
 
       </div>
 
-      {/* Table */}
+      <SearchBar
 
-      <div className="rounded-3xl bg-white shadow-xl overflow-hidden">
+        value={search}
+
+        onChange={setSearch}
+
+      />
+
+      <div style={{marginTop:25}}>
 
         <FeatureFlagTable
+
           flags={filteredFlags}
+
           onEdit={handleEdit}
+
           onDelete={handleDelete}
+
         />
 
       </div>
 
-      {/* Modal */}
-
       <Modal
-        isOpen={open}
-        onClose={() => {
-          setOpen(false);
-          setSelectedFlag(null);
-        }}
+
+        isOpen={modalOpen}
+
+        onClose={closeModal}
+
         title={
+
           selectedFlag
-            ? "Edit Feature Flag"
-            : "Create Feature Flag"
+
+          ?
+
+          "Edit Feature Flag"
+
+          :
+
+          "Create Feature Flag"
+
         }
+
       >
+
         <FeatureFlagForm
-          onSubmit={handleSubmit}
+
           initialData={selectedFlag}
+
+          onSubmit={handleSubmit}
+
         />
+
       </Modal>
 
     </div>
+
   );
+
 }

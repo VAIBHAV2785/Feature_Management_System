@@ -1,0 +1,67 @@
+{
+  "dashboard": {
+    "welcome": "वापसी पर स्वागत है, वैभव 👋",
+    "subtitle": "एक ही डैशबोर्ड से Feature Flags, Rollouts, Environments और User Targeting प्रबंधित करें।",
+
+    "createFeatureFlag": "फ़ीचर फ़्लैग बनाएं",
+    "viewDocumentation": "डॉक्यूमेंटेशन देखें",
+
+    "featureFlags": "फ़ीचर फ़्लैग",
+    "environments": "एनवायरनमेंट",
+    "evaluations": "मूल्यांकन",
+    "auditLogs": "ऑडिट लॉग",
+
+    "healthy": "सही स्थिति",
+
+    "platformStatistics": "प्लेटफ़ॉर्म आँकड़े",
+    "featureFlagStatus": "फ़ीचर फ़्लैग स्थिति",
+
+    "enabled": "सक्रिय",
+    "disabled": "निष्क्रिय",
+
+    "recentActivity": "हाल की गतिविधियाँ",
+
+    "createdFeatureFlag": "फ़ीचर फ़्लैग बनाया",
+    "updatedEnvironment": "एनवायरनमेंट अपडेट किया",
+    "addedUserGroup": "यूज़र ग्रुप जोड़ा",
+    "ruleEvaluationCompleted": "रूल मूल्यांकन पूरा हुआ",
+
+    "admin": "एडमिन",
+    "system": "सिस्टम",
+
+    "minutesAgo2": "2 मिनट पहले",
+    "minutesAgo15": "15 मिनट पहले",
+    "minutesAgo40": "40 मिनट पहले",
+    "hourAgo1": "1 घंटा पहले",
+
+    "systemHealth": "सिस्टम स्वास्थ्य",
+
+    "apiServer": "API सर्वर",
+    "postgresql": "पोस्टग्रेएसक्यूएल",
+    "authentication": "प्रमाणीकरण",
+    "redisCache": "रेडिस कैश",
+
+    "online": "ऑनलाइन",
+    "connected": "कनेक्टेड",
+    "secure": "सुरक्षित",
+
+    "runningNormally": "सामान्य रूप से चल रहा है",
+
+    "featureFlagAnalytics": "फ़ीचर फ़्लैग विश्लेषण",
+
+    "environmentDistribution": "एनवायरनमेंट वितरण",
+
+    "recentFeatureFlags": "हाल के फ़ीचर फ़्लैग",
+
+    "quickActions": "त्वरित कार्य",
+
+    "addEnvironment": "एनवायरनमेंट जोड़ें",
+    "newOverride": "नया ओवरराइड"
+  },
+  
+  "navbar": {
+    "title": "फ़ीचर मैनेजमेंट सिस्टम"
+  }
+
+  
+}

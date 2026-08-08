@@ -1,0 +1,21 @@
+.layout{
+
+    min-height:100vh;
+
+    background:#F8FAFC;
+
+}
+
+.layout-content{
+
+    margin-left:260px;
+
+    margin-top:70px;
+
+    min-height:calc(100vh - 70px);
+
+    padding:30px;
+
+    transition:.3s;
+
+}

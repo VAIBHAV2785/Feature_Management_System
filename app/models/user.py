@@ -4,6 +4,7 @@ from sqlalchemy import (
     String,
     DateTime,
     ForeignKey,
+    Boolean,
 )
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
@@ -19,34 +20,45 @@ class User(Base):
     username = Column(
         String(100),
         unique=True,
-        nullable=False
+        nullable=False,
     )
 
     email = Column(
         String(150),
         unique=True,
-        nullable=False
+        nullable=False,
     )
 
     password = Column(
         String(255),
-        nullable=False
+        nullable=False,
     )
 
     # NEW
+    role = Column(
+        String(20),
+        default="user",
+        nullable=False,
+    )
+
+    # NEW
+    is_active = Column(
+        Boolean,
+        default=True,
+    )
+
     group_id = Column(
         Integer,
         ForeignKey("user_groups.id"),
-        nullable=True
+        nullable=True,
     )
 
     created_at = Column(
         DateTime(timezone=True),
-        server_default=func.now()
+        server_default=func.now(),
     )
 
-    # Relationship
     group = relationship(
         "UserGroup",
-        back_populates="users"
+        back_populates="users",
     )

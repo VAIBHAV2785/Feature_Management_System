@@ -7,7 +7,12 @@ from app.models.environment import Environment
 
 from app.schemas.environment_override import EnvironmentOverrideCreate
 
+from app.services.audit_service import create_audit_log
 
+
+# ==================================================
+# Create Override
+# ==================================================
 def create_override(
     db: Session,
     override: EnvironmentOverrideCreate,
@@ -23,9 +28,24 @@ def create_override(
     db.commit()
     db.refresh(new_override)
 
+    create_audit_log(
+        db=db,
+        performed_by="Admin",
+        action="Create Environment Override",
+        flag_id=new_override.flag_id,
+        environment_id=new_override.environment_id,
+        old_state=None,
+        new_state={
+            "value": new_override.value,
+        },
+    )
+
     return get_override(db, new_override.id)
 
 
+# ==================================================
+# Get All Overrides
+# ==================================================
 def get_all_overrides(db: Session):
 
     overrides = db.query(EnvironmentOverride).all()
@@ -58,6 +78,9 @@ def get_all_overrides(db: Session):
     return result
 
 
+# ==================================================
+# Get Single Override
+# ==================================================
 def get_override(
     db: Session,
     override_id: int,
@@ -97,6 +120,9 @@ def get_override(
     }
 
 
+# ==================================================
+# Update Override
+# ==================================================
 def update_override(
     db: Session,
     override_id: int,
@@ -115,14 +141,35 @@ def update_override(
             detail="Override not found",
         )
 
+    old_state = {
+        "value": override.value,
+    }
+
     override.value = value
 
     db.commit()
     db.refresh(override)
 
+    new_state = {
+        "value": override.value,
+    }
+
+    create_audit_log(
+        db=db,
+        performed_by="Admin",
+        action="Update Environment Override",
+        flag_id=override.flag_id,
+        environment_id=override.environment_id,
+        old_state=old_state,
+        new_state=new_state,
+    )
+
     return get_override(db, override.id)
 
 
+# ==================================================
+# Delete Override
+# ==================================================
 def delete_override(
     db: Session,
     override_id: int,
@@ -139,6 +186,20 @@ def delete_override(
             status_code=404,
             detail="Override not found",
         )
+
+    old_state = {
+        "value": override.value,
+    }
+
+    create_audit_log(
+        db=db,
+        performed_by="Admin",
+        action="Delete Environment Override",
+        flag_id=override.flag_id,
+        environment_id=override.environment_id,
+        old_state=old_state,
+        new_state=None,
+    )
 
     db.delete(override)
     db.commit()

@@ -1,22 +1,32 @@
-import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
-export default function MainLayout({ children }) {
-  return (
-    <div className="flex bg-slate-100">
+import "./MainLayout.css";
 
-      <Sidebar />
+export default function MainLayout() {
 
-      <div className="flex-1 flex flex-col min-h-screen">
+    return (
 
-        <Navbar />
+        <>
 
-        <main className="flex-1 p-8 overflow-y-auto">
-          {children}
-        </main>
+            <Navbar />
 
-      </div>
+            <Sidebar />
 
-    </div>
-  );
+            <div className="layout">
+
+                <main className="layout-content">
+
+                    <Outlet />
+
+                </main>
+
+            </div>
+
+        </>
+
+    );
+
 }

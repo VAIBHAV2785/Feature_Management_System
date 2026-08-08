@@ -11,6 +11,7 @@ from app.schemas.targeting_rule import (
 from app.services.targeting_rule_service import (
     create_rule,
     get_rules,
+    update_rule,
     delete_rule,
 )
 
@@ -20,7 +21,9 @@ router = APIRouter(
 )
 
 
+# ===================================================
 # Create Rule
+# ===================================================
 @router.post(
     "/",
     response_model=TargetingRuleResponse
@@ -37,7 +40,9 @@ def create(
     )
 
 
+# ===================================================
 # Get All Rules
+# ===================================================
 @router.get(
     "/",
     response_model=list[TargetingRuleResponse]
@@ -48,7 +53,29 @@ def list_rules(
     return get_rules(db)
 
 
+# ===================================================
+# Update Rule
+# ===================================================
+@router.put(
+    "/{rule_id}",
+    response_model=TargetingRuleResponse
+)
+def update(
+    rule_id: int,
+    rule: TargetingRuleCreate,
+    db: Session = Depends(get_db)
+):
+    return update_rule(
+        db,
+        rule_id,
+        rule.rule_type,
+        rule.rule_value,
+    )
+
+
+# ===================================================
 # Delete Rule
+# ===================================================
 @router.delete("/{rule_id}")
 def delete(
     rule_id: int,

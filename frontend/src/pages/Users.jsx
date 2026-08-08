@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 import UserTable from "../components/user/UserTable";
 import UserForm from "../components/user/UserForm";
@@ -14,14 +16,13 @@ import {
 } from "../services/userService";
 
 export default function Users() {
+  const { t } = useTranslation();
+
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
-
-  const [open, setOpen] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     loadUsers();
@@ -31,9 +32,8 @@ export default function Users() {
     try {
       const response = await getUsers();
       setUsers(response.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to load Users");
+    } catch {
+      toast.error(t("users.loadFailed"));
     } finally {
       setLoading(false);
     }
@@ -43,130 +43,125 @@ export default function Users() {
     try {
       if (selectedUser) {
         await updateUser(selectedUser.id, data);
-        toast.success("User Updated Successfully");
+        toast.success(t("users.updated"));
       } else {
         await createUser(data);
-        toast.success("User Created Successfully");
+        toast.success(t("users.created"));
       }
 
-      setOpen(false);
-      setSelectedUser(null);
-
+      closeModal();
       loadUsers();
-    } catch (error) {
-      console.error(error);
-      toast.error("Operation Failed");
+    } catch {
+      toast.error(t("users.operationFailed"));
     }
   }
 
   async function handleDelete(id) {
-    if (!window.confirm("Delete this User?")) return;
+    if (!window.confirm(t("users.deleteConfirm"))) return;
 
     try {
       await deleteUser(id);
-      toast.success("User Deleted");
+      toast.success(t("users.deleted"));
       loadUsers();
-    } catch (error) {
-      console.error(error);
-      toast.error("Delete Failed");
+    } catch {
+      toast.error(t("users.deleteFailed"));
     }
   }
 
-  function handleEdit(user) {
-    setSelectedUser(user);
-    setOpen(true);
-  }
-
-  function handleCreate() {
+  function closeModal() {
     setSelectedUser(null);
-    setOpen(true);
+    setModalOpen(false);
   }
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(search.toLowerCase())
+  const filtered = users.filter((user) =>
+    (user.username || "")
+      .toLowerCase()
+      .includes(search.toLowerCase())
   );
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="flex items-center justify-center h-[60vh]">
-        <h2 className="text-2xl font-bold text-gray-600">
-          Loading Users...
-        </h2>
-      </div>
+      <h2 className="text-xl font-semibold">
+        {t("common.loading")}
+      </h2>
     );
-  }
 
   return (
-    <div className="space-y-8">
+    <div>
 
-      {/* Header */}
-
-      <div className="flex justify-between items-center">
-
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 30,
+        }}
+      >
         <div>
 
-          <h1 className="text-4xl font-bold text-slate-800">
-            👤 Users
+          <h1
+            style={{
+              fontSize: 34,
+              fontWeight: 700,
+            }}
+          >
+            👤 {t("users.title")}
           </h1>
 
-          <p className="text-gray-500 mt-2">
-            Manage application users
+          <p
+            style={{
+              color: "#64748B",
+            }}
+          >
+            {t("users.subtitle")}
           </p>
 
         </div>
 
         <button
-          onClick={handleCreate}
-          className="bg-gradient-to-r
-          from-blue-600 to-indigo-600
-          hover:from-blue-700 hover:to-indigo-700
-          text-white px-6 py-3 rounded-xl
-          shadow-lg transition duration-300
-          hover:scale-105"
+          onClick={() => setModalOpen(true)}
+          style={{
+            background: "#2563EB",
+            color: "white",
+            border: "none",
+            borderRadius: 12,
+            padding: "14px 24px",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            cursor: "pointer",
+            fontWeight: 600,
+          }}
         >
-          + Create User
+          <Plus size={20} />
+          {t("users.create")}
         </button>
 
       </div>
 
-      {/* Search */}
-
-      <div className="flex justify-between items-center">
-
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-        />
-
-        <div className="text-gray-500 font-medium">
-          Total Users :
-          <span className="font-bold text-blue-600 ml-2">
-            {filteredUsers.length}
-          </span>
-        </div>
-
-      </div>
-
-      {/* Table */}
-
-      <UserTable
-        users={filteredUsers}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
+      <SearchBar
+        value={search}
+        onChange={setSearch}
       />
 
-      {/* Modal */}
+      <div style={{ marginTop: 25 }}>
+        <UserTable
+          users={filtered}
+          onEdit={(user) => {
+            setSelectedUser(user);
+            setModalOpen(true);
+          }}
+          onDelete={handleDelete}
+        />
+      </div>
 
       <Modal
-        isOpen={open}
-        onClose={() => {
-          setOpen(false);
-          setSelectedUser(null);
-        }}
+        isOpen={modalOpen}
+        onClose={closeModal}
         title={
           selectedUser
-            ? "Edit User"
-            : "Create User"
+            ? t("users.editTitle")
+            : t("users.createTitle")
         }
       >
         <UserForm

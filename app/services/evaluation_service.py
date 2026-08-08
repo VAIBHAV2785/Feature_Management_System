@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.models.feature_flag import FeatureFlag
 from app.models.environment import Environment
@@ -13,6 +14,8 @@ from app.cache.cache_service import (
     get_cached_result,
     cache_result,
 )
+
+from app.services.evaluation_log_service import create_evaluation_log
 
 
 def evaluate_flag(
@@ -70,6 +73,14 @@ def evaluate_flag(
             result,
         )
 
+        create_evaluation_log(
+            db=db,
+            flag_id=flag.id,
+            user_id=user_id,
+            environment=environment_name,
+            result=False,
+        )
+
         return result
 
     # -------------------------
@@ -77,7 +88,10 @@ def evaluate_flag(
     # -------------------------
     environment = (
         db.query(Environment)
-        .filter(Environment.name == environment_name)
+        .filter(
+            func.lower(Environment.name)
+            == environment_name.lower()
+        )
         .first()
     )
 
@@ -118,6 +132,14 @@ def evaluate_flag(
             result,
         )
 
+        create_evaluation_log(
+            db=db,
+            flag_id=flag.id,
+            user_id=user_id,
+            environment=environment_name,
+            result=enabled,
+        )
+
         return result
 
     # -------------------------
@@ -148,6 +170,14 @@ def evaluate_flag(
             user_id,
             environment_name,
             result,
+        )
+
+        create_evaluation_log(
+            db=db,
+            flag_id=flag.id,
+            user_id=user_id,
+            environment=environment_name,
+            result=True,
         )
 
         return result
@@ -190,6 +220,14 @@ def evaluate_flag(
                 result,
             )
 
+            create_evaluation_log(
+                db=db,
+                flag_id=flag.id,
+                user_id=user_id,
+                environment=environment_name,
+                result=True,
+            )
+
             return result
 
     # -------------------------
@@ -215,6 +253,14 @@ def evaluate_flag(
         user_id,
         environment_name,
         result,
+    )
+
+    create_evaluation_log(
+        db=db,
+        flag_id=flag.id,
+        user_id=user_id,
+        environment=environment_name,
+        result=enabled,
     )
 
     return result

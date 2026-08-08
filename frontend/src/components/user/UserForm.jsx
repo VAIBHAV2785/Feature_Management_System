@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function UserForm({
   onSubmit,
   initialData,
 }) {
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -43,60 +46,63 @@ export default function UserForm({
     >
       <div>
         <label className="block mb-2 font-semibold">
-          Username
+          {t("users.username")}
         </label>
 
         <input
           {...register("username", { required: true })}
           className="w-full border rounded-lg p-3"
-          placeholder="john_doe"
+          placeholder={t("users.usernamePlaceholder")}
         />
       </div>
 
       <div>
         <label className="block mb-2 font-semibold">
-          Email
+          {t("users.email")}
         </label>
 
         <input
           type="email"
           {...register("email", { required: true })}
           className="w-full border rounded-lg p-3"
-          placeholder="john@example.com"
+          placeholder={t("users.emailPlaceholder")}
         />
       </div>
 
       {!initialData && (
         <div>
           <label className="block mb-2 font-semibold">
-            Password
+            {t("users.password")}
           </label>
 
           <input
             type="password"
             {...register("password", { required: true })}
             className="w-full border rounded-lg p-3"
+            placeholder={t("users.password")}
           />
         </div>
       )}
 
       <div>
         <label className="block mb-2 font-semibold">
-          Group ID
+          {t("users.group")}
         </label>
 
         <input
           type="number"
           {...register("group_id")}
           className="w-full border rounded-lg p-3"
-          placeholder="Optional"
+          placeholder={t("users.groupPlaceholder")}
         />
       </div>
 
       <button
         className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
       >
-        {initialData ? "Update User" : "Create User"}
+        {initialData
+          ? t("users.update")
+          : t("users.create")}
       </button>
     </form>
   );

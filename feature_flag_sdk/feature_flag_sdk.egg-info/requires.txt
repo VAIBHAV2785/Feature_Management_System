@@ -1,0 +1,4 @@
+requests
+cachetools
+python-dotenv
+starlette

@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: feature_flag_sdk
+Version: 1.0.0
+Summary: Python SDK for Feature Management System
+Author: Vaibhav Priyadarshi
+Requires-Python: >=3.10
+Requires-Dist: requests
+Requires-Dist: cachetools
+Requires-Dist: python-dotenv
+Requires-Dist: starlette
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

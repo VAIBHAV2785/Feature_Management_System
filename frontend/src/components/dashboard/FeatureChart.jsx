@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   PieChart,
   Pie,
@@ -7,14 +8,15 @@ import {
 } from "recharts";
 
 export default function FeatureChart({ enabled, disabled }) {
+  const { t } = useTranslation();
 
   const data = [
     {
-      name: "Enabled",
+      name: t("dashboard.enabled"),
       value: enabled,
     },
     {
-      name: "Disabled",
+      name: t("dashboard.disabled"),
       value: disabled,
     },
   ];
@@ -25,43 +27,30 @@ export default function FeatureChart({ enabled, disabled }) {
   ];
 
   return (
-
     <div className="bg-white rounded-2xl shadow-lg p-6 h-[350px]">
-
       <h2 className="text-xl font-bold mb-6">
-        Feature Flag Analytics
+        {t("dashboard.featureFlagAnalytics")}
       </h2>
 
       <ResponsiveContainer>
-
         <PieChart>
-
           <Pie
             data={data}
             innerRadius={70}
             outerRadius={110}
             dataKey="value"
           >
-
             {data.map((entry, index) => (
-
               <Cell
                 key={index}
                 fill={COLORS[index]}
               />
-
             ))}
-
           </Pie>
 
           <Tooltip />
-
         </PieChart>
-
       </ResponsiveContainer>
-
     </div>
-
   );
-
 }

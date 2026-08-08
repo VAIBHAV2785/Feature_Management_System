@@ -1,31 +1,37 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
   PieChart,
   Pie,
   Cell,
+  Legend,
 } from "recharts";
 
 const COLORS = [
-  "#3B82F6",
+  "#2563EB",
   "#10B981",
+  "#F59E0B",
+  "#EF4444",
 ];
 
 export default function AnalyticsChart() {
-  const [data, setData] = useState([]);
+  const { t } = useTranslation();
+
+  const [barData, setBarData] = useState([]);
   const [pieData, setPieData] = useState([]);
 
   useEffect(() => {
     loadAnalytics();
-  }, []);
+  }, [t]);
 
   async function loadAnalytics() {
     try {
@@ -34,115 +40,99 @@ export default function AnalyticsChart() {
         envs,
         groups,
         rules,
-        users,
       ] = await Promise.all([
         axios.get("http://127.0.0.1:8000/flags"),
         axios.get("http://127.0.0.1:8000/environments"),
         axios.get("http://127.0.0.1:8000/groups"),
         axios.get("http://127.0.0.1:8000/targeting-rules"),
-        axios.get("http://127.0.0.1:8000/auth/users"),
       ]);
 
-      const enabled = flags.data.filter(f => f.enabled).length;
+      const enabled = flags.data.filter((f) => f.enabled).length;
       const disabled = flags.data.length - enabled;
 
+      setBarData([
+        {
+          name: t("dashboard.featureFlags"),
+          value: flags.data.length,
+        },
+        {
+          name: t("dashboard.environments"),
+          value: envs.data.length,
+        },
+        {
+          name: t("dashboard.groups"),
+          value: groups.data.length,
+        },
+        {
+          name: t("dashboard.rules"),
+          value: rules.data.length,
+        },
+      ]);
+
       setPieData([
-        { name: "Enabled", value: enabled },
-        { name: "Disabled", value: disabled },
+        {
+          name: t("dashboard.enabled"),
+          value: enabled,
+        },
+        {
+          name: t("dashboard.disabled"),
+          value: disabled,
+        },
       ]);
-
-      setData([
-        { name: "Flags", value: flags.data.length },
-        { name: "Env", value: envs.data.length },
-        { name: "Users", value: users.data.length },
-        { name: "Groups", value: groups.data.length },
-        { name: "Rules", value: rules.data.length },
-      ]);
-
     } catch (err) {
       console.log(err);
     }
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-6">
-
-      {/* Bar Chart */}
-
-      <div className="bg-white rounded-3xl shadow-xl p-6">
-
-        <h2 className="text-xl font-bold mb-6">
-          📊 System Analytics
+    <div className="grid lg:grid-cols-2 gap-8">
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <h2 className="text-2xl font-bold mb-6">
+          📊 {t("dashboard.platformStatistics")}
         </h2>
 
-        <ResponsiveContainer
-          width="100%"
-          height={320}
-        >
-
-          <BarChart data={data}>
-
-            <CartesianGrid
-              strokeDasharray="3 3"
-            />
-
+        <ResponsiveContainer width="100%" height={330}>
+          <BarChart data={barData}>
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-
             <YAxis />
-
             <Tooltip />
-
             <Bar
               dataKey="value"
-              radius={[10,10,0,0]}
               fill="#2563EB"
+              radius={[12, 12, 0, 0]}
             />
-
           </BarChart>
-
         </ResponsiveContainer>
-
       </div>
 
-      {/* Pie Chart */}
-
-      <div className="bg-white rounded-3xl shadow-xl p-6">
-
-        <h2 className="text-xl font-bold mb-6">
-          🚀 Feature Status
+      <div className="bg-white rounded-3xl shadow-xl p-8">
+        <h2 className="text-2xl font-bold mb-6">
+          🚀 {t("dashboard.featureFlagStatus")}
         </h2>
 
-        <ResponsiveContainer
-          width="100%"
-          height={320}
-        >
-
+        <ResponsiveContainer width="100%" height={330}>
           <PieChart>
-
             <Pie
               data={pieData}
-              dataKey="value"
               outerRadius={110}
-              label
+              innerRadius={65}
+              paddingAngle={5}
+              dataKey="value"
             >
-
-              {pieData.map((entry,index)=>(
+              {pieData.map((entry, index) => (
                 <Cell
                   key={index}
                   fill={COLORS[index]}
                 />
               ))}
-
             </Pie>
 
             <Tooltip />
-
+            <Legend />
           </PieChart>
-
         </ResponsiveContainer>
-
       </div>
-
     </div>
   );
 }

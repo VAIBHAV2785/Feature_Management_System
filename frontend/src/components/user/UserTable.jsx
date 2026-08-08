@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import UserRow from "./UserRow";
 
 export default function UserTable({
@@ -5,29 +6,31 @@ export default function UserTable({
   onEdit,
   onDelete,
 }) {
+  const { t } = useTranslation();
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div className="overflow-x-auto bg-white rounded-xl shadow border">
 
       <table className="w-full">
 
-        <thead className="bg-gradient-to-r from-slate-800 to-slate-700 text-white">
+        <thead className="bg-gray-100">
 
           <tr>
 
-            <th className="p-5 text-left">
-              Username
+            <th className="text-left p-4">
+              {t("users.username")}
             </th>
 
-            <th className="p-5 text-left">
-              Email
+            <th className="text-left p-4">
+              {t("users.email")}
             </th>
 
-            <th className="p-5 text-left">
-              Group ID
+            <th className="text-left p-4">
+              {t("users.group")}
             </th>
 
-            <th className="p-5 text-center">
-              Actions
+            <th className="text-center p-4">
+              {t("common.actions")}
             </th>
 
           </tr>
@@ -39,12 +42,14 @@ export default function UserTable({
           {users.length > 0 ? (
 
             users.map((user) => (
+
               <UserRow
                 key={user.id}
                 user={user}
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
+
             ))
 
           ) : (
@@ -55,7 +60,7 @@ export default function UserTable({
                 colSpan="4"
                 className="text-center py-10 text-gray-500"
               >
-                No Users Found
+                {t("users.noUsers")}
               </td>
 
             </tr>

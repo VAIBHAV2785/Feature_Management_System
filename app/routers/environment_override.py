@@ -22,7 +22,6 @@ router = APIRouter(
 )
 
 
-# Create Override
 @router.post("/", response_model=EnvironmentOverrideResponse)
 def create(
     override: EnvironmentOverrideCreate,
@@ -31,7 +30,6 @@ def create(
     return create_override(db, override)
 
 
-# List Overrides
 @router.get("/", response_model=list[EnvironmentOverrideResponse])
 def list_all(
     db: Session = Depends(get_db)
@@ -39,7 +37,6 @@ def list_all(
     return get_all_overrides(db)
 
 
-# Get Single Override
 @router.get("/{override_id}", response_model=EnvironmentOverrideResponse)
 def get_one(
     override_id: int,
@@ -48,7 +45,6 @@ def get_one(
     return get_override(db, override_id)
 
 
-# Update Override
 @router.put("/{override_id}", response_model=EnvironmentOverrideResponse)
 def update(
     override_id: int,
@@ -58,7 +54,6 @@ def update(
     return update_override(db, override_id, value)
 
 
-# Delete Override
 @router.delete("/{override_id}")
 def delete(
     override_id: int,

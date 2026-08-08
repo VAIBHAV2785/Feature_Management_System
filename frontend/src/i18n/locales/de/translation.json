@@ -1,0 +1,65 @@
+{
+  "dashboard": {
+    "welcome": "Willkommen zurück, Vaibhav 👋",
+    "subtitle": "Verwalten Sie Feature Flags, Rollouts, Umgebungen und Benutzer-Targeting über ein einziges Dashboard.",
+
+    "createFeatureFlag": "Feature Flag erstellen",
+    "viewDocumentation": "Dokumentation anzeigen",
+
+    "featureFlags": "Feature Flags",
+    "environments": "Umgebungen",
+    "evaluations": "Auswertungen",
+    "auditLogs": "Audit-Protokolle",
+
+    "healthy": "Gesund",
+
+    "platformStatistics": "Plattformstatistiken",
+    "featureFlagStatus": "Feature-Flag-Status",
+
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert",
+
+    "recentActivity": "Letzte Aktivitäten",
+
+    "createdFeatureFlag": "Feature Flag erstellt",
+    "updatedEnvironment": "Umgebung aktualisiert",
+    "addedUserGroup": "Benutzergruppe hinzugefügt",
+    "ruleEvaluationCompleted": "Regelauswertung abgeschlossen",
+
+    "admin": "Administrator",
+    "system": "System",
+
+    "minutesAgo2": "vor 2 Min",
+    "minutesAgo15": "vor 15 Min",
+    "minutesAgo40": "vor 40 Min",
+    "hourAgo1": "vor 1 Stunde",
+
+    "systemHealth": "Systemstatus",
+
+    "apiServer": "API-Server",
+    "postgresql": "PostgreSQL",
+    "authentication": "Authentifizierung",
+    "redisCache": "Redis-Cache",
+
+    "online": "Online",
+    "connected": "Verbunden",
+    "secure": "Sicher",
+
+    "runningNormally": "Läuft normal",
+
+    "featureFlagAnalytics": "Feature-Flag-Analyse",
+
+    "environmentDistribution": "Umgebungsverteilung",
+
+    "recentFeatureFlags": "Neueste Feature Flags",
+
+    "quickActions": "Schnellaktionen",
+
+    "addEnvironment": "Umgebung hinzufügen",
+    "newOverride": "Neue Überschreibung"
+  },
+  
+  "navbar": {
+    "title": "Feature-Management-System"
+  }
+}

@@ -5,7 +5,9 @@ from sqlalchemy import (
     Boolean,
     DateTime,
 )
+
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 
 from app.database.connection import Base
 
@@ -56,4 +58,14 @@ class FeatureFlag(Base):
     created_at = Column(
         DateTime(timezone=True),
         server_default=func.now()
+    )
+
+    # -----------------------------
+    # Relationships
+    # -----------------------------
+
+    audit_logs = relationship(
+        "AuditLog",
+        back_populates="flag",
+        cascade="all, delete-orphan"
     )

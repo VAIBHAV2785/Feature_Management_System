@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 import {
   PieChart,
   Pie,
@@ -8,6 +11,7 @@ import {
 } from "recharts";
 
 export default function FeatureChart({ enabled, disabled }) {
+<<<<<<< HEAD
   const { t } = useTranslation();
 
   const data = [
@@ -17,6 +21,16 @@ export default function FeatureChart({ enabled, disabled }) {
     },
     {
       name: t("dashboard.disabled"),
+=======
+
+  const data = [
+    {
+      name: "Enabled",
+      value: enabled,
+    },
+    {
+      name: "Disabled",
+>>>>>>> bcd60838 (MILESTONE 2)
       value: disabled,
     },
   ];
@@ -27,6 +41,7 @@ export default function FeatureChart({ enabled, disabled }) {
   ];
 
   return (
+<<<<<<< HEAD
     <div className="bg-white rounded-2xl shadow-lg p-6 h-[350px]">
       <h2 className="text-xl font-bold mb-6">
         {t("dashboard.featureFlagAnalytics")}
@@ -34,17 +49,37 @@ export default function FeatureChart({ enabled, disabled }) {
 
       <ResponsiveContainer>
         <PieChart>
+=======
+
+    <div className="bg-white rounded-2xl shadow-lg p-6 h-[350px]">
+
+      <h2 className="text-xl font-bold mb-6">
+        Feature Flag Analytics
+      </h2>
+
+      <ResponsiveContainer>
+
+        <PieChart>
+
+>>>>>>> bcd60838 (MILESTONE 2)
           <Pie
             data={data}
             innerRadius={70}
             outerRadius={110}
             dataKey="value"
           >
+<<<<<<< HEAD
             {data.map((entry, index) => (
+=======
+
+            {data.map((entry, index) => (
+
+>>>>>>> bcd60838 (MILESTONE 2)
               <Cell
                 key={index}
                 fill={COLORS[index]}
               />
+<<<<<<< HEAD
             ))}
           </Pie>
 
@@ -53,4 +88,21 @@ export default function FeatureChart({ enabled, disabled }) {
       </ResponsiveContainer>
     </div>
   );
+=======
+
+            ))}
+
+          </Pie>
+
+          <Tooltip />
+
+        </PieChart>
+
+      </ResponsiveContainer>
+
+    </div>
+
+  );
+
+>>>>>>> bcd60838 (MILESTONE 2)
 }

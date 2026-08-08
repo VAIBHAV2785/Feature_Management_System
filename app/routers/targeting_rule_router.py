@@ -11,7 +11,10 @@ from app.schemas.targeting_rule import (
 from app.services.targeting_rule_service import (
     create_rule,
     get_rules,
+<<<<<<< HEAD
     update_rule,
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     delete_rule,
 )
 
@@ -21,9 +24,13 @@ router = APIRouter(
 )
 
 
+<<<<<<< HEAD
 # ===================================================
 # Create Rule
 # ===================================================
+=======
+# Create Rule
+>>>>>>> bcd60838 (MILESTONE 2)
 @router.post(
     "/",
     response_model=TargetingRuleResponse
@@ -40,9 +47,13 @@ def create(
     )
 
 
+<<<<<<< HEAD
 # ===================================================
 # Get All Rules
 # ===================================================
+=======
+# Get All Rules
+>>>>>>> bcd60838 (MILESTONE 2)
 @router.get(
     "/",
     response_model=list[TargetingRuleResponse]
@@ -53,6 +64,7 @@ def list_rules(
     return get_rules(db)
 
 
+<<<<<<< HEAD
 # ===================================================
 # Update Rule
 # ===================================================
@@ -76,6 +88,9 @@ def update(
 # ===================================================
 # Delete Rule
 # ===================================================
+=======
+# Delete Rule
+>>>>>>> bcd60838 (MILESTONE 2)
 @router.delete("/{rule_id}")
 def delete(
     rule_id: int,

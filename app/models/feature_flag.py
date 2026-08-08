@@ -5,9 +5,13 @@ from sqlalchemy import (
     Boolean,
     DateTime,
 )
+<<<<<<< HEAD
 
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
+=======
+from sqlalchemy.sql import func
+>>>>>>> bcd60838 (MILESTONE 2)
 
 from app.database.connection import Base
 
@@ -58,6 +62,7 @@ class FeatureFlag(Base):
     created_at = Column(
         DateTime(timezone=True),
         server_default=func.now()
+<<<<<<< HEAD
     )
 
     # -----------------------------
@@ -68,4 +73,6 @@ class FeatureFlag(Base):
         "AuditLog",
         back_populates="flag",
         cascade="all, delete-orphan"
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     )

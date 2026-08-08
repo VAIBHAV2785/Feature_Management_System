@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 import UserRow from "./UserRow";
 
 export default function UserTable({
@@ -6,6 +9,7 @@ export default function UserTable({
   onEdit,
   onDelete,
 }) {
+<<<<<<< HEAD
   const { t } = useTranslation();
 
   return (
@@ -31,6 +35,31 @@ export default function UserTable({
 
             <th className="text-center p-4">
               {t("common.actions")}
+=======
+  return (
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+      <table className="w-full">
+
+        <thead className="bg-gradient-to-r from-slate-800 to-slate-700 text-white">
+
+          <tr>
+
+            <th className="p-5 text-left">
+              Username
+            </th>
+
+            <th className="p-5 text-left">
+              Email
+            </th>
+
+            <th className="p-5 text-left">
+              Group ID
+            </th>
+
+            <th className="p-5 text-center">
+              Actions
+>>>>>>> bcd60838 (MILESTONE 2)
             </th>
 
           </tr>
@@ -42,14 +71,20 @@ export default function UserTable({
           {users.length > 0 ? (
 
             users.map((user) => (
+<<<<<<< HEAD
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
               <UserRow
                 key={user.id}
                 user={user}
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
+<<<<<<< HEAD
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
             ))
 
           ) : (
@@ -60,7 +95,11 @@ export default function UserTable({
                 colSpan="4"
                 className="text-center py-10 text-gray-500"
               >
+<<<<<<< HEAD
                 {t("users.noUsers")}
+=======
+                No Users Found
+>>>>>>> bcd60838 (MILESTONE 2)
               </td>
 
             </tr>

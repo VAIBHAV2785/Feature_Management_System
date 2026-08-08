@@ -10,8 +10,11 @@ from app.core.security import (
     create_access_token,
 )
 
+<<<<<<< HEAD
 from app.services.audit_service import create_audit_log
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 
 # =====================================================
 # Signup
@@ -23,11 +26,17 @@ def signup(
     password: str,
     group_id: int | None = None,
 ):
+<<<<<<< HEAD
     existing_user = (
         db.query(User)
         .filter(User.email == email)
         .first()
     )
+=======
+    existing_user = db.query(User).filter(
+        User.email == email
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if existing_user:
         raise HTTPException(
@@ -36,11 +45,17 @@ def signup(
         )
 
     if group_id is not None:
+<<<<<<< HEAD
         group = (
             db.query(UserGroup)
             .filter(UserGroup.id == group_id)
             .first()
         )
+=======
+        group = db.query(UserGroup).filter(
+            UserGroup.id == group_id
+        ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
         if group is None:
             raise HTTPException(
@@ -59,6 +74,7 @@ def signup(
     db.commit()
     db.refresh(user)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -71,6 +87,8 @@ def signup(
         },
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return user
 
 
@@ -82,11 +100,17 @@ def login(
     email: str,
     password: str,
 ):
+<<<<<<< HEAD
     user = (
         db.query(User)
         .filter(User.email == email)
         .first()
     )
+=======
+    user = db.query(User).filter(
+        User.email == email
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if user is None:
         raise HTTPException(
@@ -127,11 +151,17 @@ def get_user(
     db: Session,
     user_id: int,
 ):
+<<<<<<< HEAD
     user = (
         db.query(User)
         .filter(User.id == user_id)
         .first()
     )
+=======
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if not user:
         raise HTTPException(
@@ -152,6 +182,7 @@ def update_user(
     email: str,
     group_id: int | None = None,
 ):
+<<<<<<< HEAD
     user = get_user(db, user_id)
 
     if group_id is not None:
@@ -160,6 +191,22 @@ def update_user(
             .filter(UserGroup.id == group_id)
             .first()
         )
+=======
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found",
+        )
+
+    if group_id is not None:
+        group = db.query(UserGroup).filter(
+            UserGroup.id == group_id
+        ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
         if group is None:
             raise HTTPException(
@@ -167,12 +214,15 @@ def update_user(
                 detail="Group not found",
             )
 
+<<<<<<< HEAD
     old_state = {
         "username": user.username,
         "email": user.email,
         "group_id": user.group_id,
     }
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     user.username = username
     user.email = email
     user.group_id = group_id
@@ -180,6 +230,7 @@ def update_user(
     db.commit()
     db.refresh(user)
 
+<<<<<<< HEAD
     new_state = {
         "username": user.username,
         "email": user.email,
@@ -194,6 +245,8 @@ def update_user(
         new_state=new_state,
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return user
 
 
@@ -204,6 +257,7 @@ def delete_user(
     db: Session,
     user_id: int,
 ):
+<<<<<<< HEAD
     user = get_user(db, user_id)
 
     old_state = {
@@ -219,6 +273,17 @@ def delete_user(
         old_state=old_state,
         new_state=None,
     )
+=======
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found",
+        )
+>>>>>>> bcd60838 (MILESTONE 2)
 
     db.delete(user)
     db.commit()
@@ -236,6 +301,7 @@ def assign_group(
     user_id: int,
     group_id: int,
 ):
+<<<<<<< HEAD
     user = get_user(db, user_id)
 
     group = (
@@ -243,6 +309,21 @@ def assign_group(
         .filter(UserGroup.id == group_id)
         .first()
     )
+=======
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found",
+        )
+
+    group = db.query(UserGroup).filter(
+        UserGroup.id == group_id
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if group is None:
         raise HTTPException(
@@ -250,15 +331,19 @@ def assign_group(
             detail="Group not found",
         )
 
+<<<<<<< HEAD
     old_state = {
         "group_id": user.group_id,
     }
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     user.group_id = group_id
 
     db.commit()
     db.refresh(user)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -270,4 +355,6 @@ def assign_group(
         },
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return user

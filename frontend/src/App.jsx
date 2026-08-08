@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
@@ -94,3 +95,22 @@ export default function App() {
     );
 
 }
+=======
+import AppRoutes from "./routes/AppRoutes";
+import { Toaster } from "react-hot-toast";
+
+function App() {
+  return (
+    <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+
+      <AppRoutes />
+    </>
+  );
+}
+
+export default App;
+>>>>>>> bcd60838 (MILESTONE 2)

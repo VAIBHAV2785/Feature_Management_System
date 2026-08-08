@@ -8,20 +8,37 @@ from app.schemas.evaluation import (
     EvaluationResponse,
 )
 
+<<<<<<< HEAD
 from app.services.evaluation_service import evaluate_flag
+=======
+from app.services.evaluation_service import (
+    evaluate_flag,
+)
+>>>>>>> bcd60838 (MILESTONE 2)
 
 router = APIRouter(
     prefix="/evaluate",
     tags=["Evaluation"],
 )
 
+<<<<<<< HEAD
 @router.post("/", response_model=EvaluationResponse)
+=======
+
+@router.post(
+    "/",
+    response_model=EvaluationResponse,
+)
+>>>>>>> bcd60838 (MILESTONE 2)
 def evaluate(
     request: EvaluationRequest,
     db: Session = Depends(get_db),
 ):
+<<<<<<< HEAD
     print("===== REQUEST RECEIVED =====")
     print(request)
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 
     return evaluate_flag(
         db,

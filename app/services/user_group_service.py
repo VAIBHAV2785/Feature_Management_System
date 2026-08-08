@@ -4,14 +4,18 @@ from sqlalchemy.orm import Session
 from app.models.user_group import UserGroup
 from app.models.user import User
 
+<<<<<<< HEAD
 from app.services.audit_service import create_audit_log
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 
 # =====================================================
 # Create Group
 # =====================================================
 def create_group(
     db: Session,
+<<<<<<< HEAD
     group_name: str,
 ):
 
@@ -20,21 +24,38 @@ def create_group(
         .filter(UserGroup.group_name == group_name)
         .first()
     )
+=======
+    group_name: str
+):
+
+    existing = db.query(UserGroup).filter(
+        UserGroup.group_name == group_name
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if existing:
         raise HTTPException(
             status_code=400,
+<<<<<<< HEAD
             detail="Group already exists",
         )
 
     group = UserGroup(
         group_name=group_name,
+=======
+            detail="Group already exists"
+        )
+
+    group = UserGroup(
+        group_name=group_name
+>>>>>>> bcd60838 (MILESTONE 2)
     )
 
     db.add(group)
     db.commit()
     db.refresh(group)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -45,6 +66,8 @@ def create_group(
         },
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return group
 
 
@@ -61,6 +84,7 @@ def get_groups(db: Session):
 # =====================================================
 def get_group(
     db: Session,
+<<<<<<< HEAD
     group_id: int,
 ):
 
@@ -74,6 +98,19 @@ def get_group(
         raise HTTPException(
             status_code=404,
             detail="Group not found",
+=======
+    group_id: int
+):
+
+    group = db.query(UserGroup).filter(
+        UserGroup.id == group_id
+    ).first()
+
+    if group is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Group not found"
+>>>>>>> bcd60838 (MILESTONE 2)
         )
 
     return group
@@ -85,6 +122,7 @@ def get_group(
 def update_group(
     db: Session,
     group_id: int,
+<<<<<<< HEAD
     group_name: str,
 ):
 
@@ -93,12 +131,22 @@ def update_group(
     old_state = {
         "group_name": group.group_name,
     }
+=======
+    group_name: str
+):
+
+    group = get_group(
+        db,
+        group_id
+    )
+>>>>>>> bcd60838 (MILESTONE 2)
 
     group.group_name = group_name
 
     db.commit()
     db.refresh(group)
 
+<<<<<<< HEAD
     new_state = {
         "group_name": group.group_name,
     }
@@ -111,6 +159,8 @@ def update_group(
         new_state=new_state,
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return group
 
 
@@ -119,6 +169,7 @@ def update_group(
 # =====================================================
 def delete_group(
     db: Session,
+<<<<<<< HEAD
     group_id: int,
 ):
 
@@ -134,6 +185,14 @@ def delete_group(
         action="Delete Group",
         old_state=old_state,
         new_state=None,
+=======
+    group_id: int
+):
+
+    group = get_group(
+        db,
+        group_id
+>>>>>>> bcd60838 (MILESTONE 2)
     )
 
     db.delete(group)
@@ -150,6 +209,7 @@ def delete_group(
 def add_user_to_group(
     db: Session,
     group_id: int,
+<<<<<<< HEAD
     user_id: int,
 ):
 
@@ -171,11 +231,32 @@ def add_user_to_group(
         "group_id": user.group_id,
     }
 
+=======
+    user_id: int
+):
+
+    group = get_group(
+        db,
+        group_id
+    )
+
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+
+>>>>>>> bcd60838 (MILESTONE 2)
     user.group_id = group.id
 
     db.commit()
     db.refresh(user)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -188,6 +269,8 @@ def add_user_to_group(
         },
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return user
 
 
@@ -197,6 +280,7 @@ def add_user_to_group(
 def remove_user_from_group(
     db: Session,
     group_id: int,
+<<<<<<< HEAD
     user_id: int,
 ):
 
@@ -212,11 +296,30 @@ def remove_user_from_group(
         raise HTTPException(
             status_code=404,
             detail="User not found",
+=======
+    user_id: int
+):
+
+    group = get_group(
+        db,
+        group_id
+    )
+
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+>>>>>>> bcd60838 (MILESTONE 2)
         )
 
     if user.group_id != group.id:
         raise HTTPException(
             status_code=400,
+<<<<<<< HEAD
             detail="User is not a member of this group",
         )
 
@@ -225,11 +328,17 @@ def remove_user_from_group(
         "group_name": group.group_name,
     }
 
+=======
+            detail="User is not a member of this group"
+        )
+
+>>>>>>> bcd60838 (MILESTONE 2)
     user.group_id = None
 
     db.commit()
     db.refresh(user)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -240,6 +349,8 @@ def remove_user_from_group(
         },
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return {
         "message": f"{user.username} removed successfully"
     }
@@ -250,6 +361,7 @@ def remove_user_from_group(
 # =====================================================
 def get_group_members(
     db: Session,
+<<<<<<< HEAD
     group_id: int,
 ):
 
@@ -260,3 +372,18 @@ def get_group_members(
         .filter(User.group_id == group_id)
         .all()
     )
+=======
+    group_id: int
+):
+
+    get_group(
+        db,
+        group_id
+    )
+
+    members = db.query(User).filter(
+        User.group_id == group_id
+    ).all()
+
+    return members
+>>>>>>> bcd60838 (MILESTONE 2)

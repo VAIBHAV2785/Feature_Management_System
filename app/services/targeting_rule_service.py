@@ -4,12 +4,19 @@ from sqlalchemy.orm import Session
 from app.models.targeting_rule import TargetingRule
 from app.models.feature_flag import FeatureFlag
 
+<<<<<<< HEAD
 from app.services.audit_service import create_audit_log
 
 
 # ===================================================
 # Create Rule
 # ===================================================
+=======
+
+# ------------------------
+# Create Rule
+# ------------------------
+>>>>>>> bcd60838 (MILESTONE 2)
 def create_rule(
     db: Session,
     flag_id: int,
@@ -17,11 +24,17 @@ def create_rule(
     rule_value: str
 ):
 
+<<<<<<< HEAD
     flag = (
         db.query(FeatureFlag)
         .filter(FeatureFlag.id == flag_id)
         .first()
     )
+=======
+    flag = db.query(FeatureFlag).filter(
+        FeatureFlag.id == flag_id
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if not flag:
         raise HTTPException(
@@ -39,6 +52,7 @@ def create_rule(
     db.commit()
     db.refresh(rule)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -57,10 +71,19 @@ def create_rule(
 # ===================================================
 # Get Rules
 # ===================================================
+=======
+    return rule
+
+
+# ------------------------
+# Get Rules
+# ------------------------
+>>>>>>> bcd60838 (MILESTONE 2)
 def get_rules(db: Session):
     return db.query(TargetingRule).all()
 
 
+<<<<<<< HEAD
 # ===================================================
 # Update Rule (NEW)
 # ===================================================
@@ -114,16 +137,27 @@ def update_rule(
 # ===================================================
 # Delete Rule
 # ===================================================
+=======
+# ------------------------
+# Delete Rule
+# ------------------------
+>>>>>>> bcd60838 (MILESTONE 2)
 def delete_rule(
     db: Session,
     rule_id: int
 ):
 
+<<<<<<< HEAD
     rule = (
         db.query(TargetingRule)
         .filter(TargetingRule.id == rule_id)
         .first()
     )
+=======
+    rule = db.query(TargetingRule).filter(
+        TargetingRule.id == rule_id
+    ).first()
+>>>>>>> bcd60838 (MILESTONE 2)
 
     if not rule:
         raise HTTPException(
@@ -131,6 +165,7 @@ def delete_rule(
             detail="Rule not found"
         )
 
+<<<<<<< HEAD
     old_state = {
         "rule_type": rule.rule_type,
         "rule_value": rule.rule_value,
@@ -145,6 +180,8 @@ def delete_rule(
         new_state=None,
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     db.delete(rule)
     db.commit()
 

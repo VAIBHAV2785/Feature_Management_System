@@ -7,12 +7,16 @@ from app.models.environment import Environment
 
 from app.schemas.environment_override import EnvironmentOverrideCreate
 
+<<<<<<< HEAD
 from app.services.audit_service import create_audit_log
 
 
 # ==================================================
 # Create Override
 # ==================================================
+=======
+
+>>>>>>> bcd60838 (MILESTONE 2)
 def create_override(
     db: Session,
     override: EnvironmentOverrideCreate,
@@ -28,6 +32,7 @@ def create_override(
     db.commit()
     db.refresh(new_override)
 
+<<<<<<< HEAD
     create_audit_log(
         db=db,
         performed_by="Admin",
@@ -46,6 +51,11 @@ def create_override(
 # ==================================================
 # Get All Overrides
 # ==================================================
+=======
+    return get_override(db, new_override.id)
+
+
+>>>>>>> bcd60838 (MILESTONE 2)
 def get_all_overrides(db: Session):
 
     overrides = db.query(EnvironmentOverride).all()
@@ -78,9 +88,12 @@ def get_all_overrides(db: Session):
     return result
 
 
+<<<<<<< HEAD
 # ==================================================
 # Get Single Override
 # ==================================================
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 def get_override(
     db: Session,
     override_id: int,
@@ -120,9 +133,12 @@ def get_override(
     }
 
 
+<<<<<<< HEAD
 # ==================================================
 # Update Override
 # ==================================================
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 def update_override(
     db: Session,
     override_id: int,
@@ -141,15 +157,19 @@ def update_override(
             detail="Override not found",
         )
 
+<<<<<<< HEAD
     old_state = {
         "value": override.value,
     }
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     override.value = value
 
     db.commit()
     db.refresh(override)
 
+<<<<<<< HEAD
     new_state = {
         "value": override.value,
     }
@@ -170,6 +190,11 @@ def update_override(
 # ==================================================
 # Delete Override
 # ==================================================
+=======
+    return get_override(db, override.id)
+
+
+>>>>>>> bcd60838 (MILESTONE 2)
 def delete_override(
     db: Session,
     override_id: int,
@@ -187,6 +212,7 @@ def delete_override(
             detail="Override not found",
         )
 
+<<<<<<< HEAD
     old_state = {
         "value": override.value,
     }
@@ -201,6 +227,8 @@ def delete_override(
         new_state=None,
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     db.delete(override)
     db.commit()
 

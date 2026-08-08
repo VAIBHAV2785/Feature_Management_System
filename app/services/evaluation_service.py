@@ -1,6 +1,9 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+<<<<<<< HEAD
 from sqlalchemy import func
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 
 from app.models.feature_flag import FeatureFlag
 from app.models.environment import Environment
@@ -15,8 +18,11 @@ from app.cache.cache_service import (
     cache_result,
 )
 
+<<<<<<< HEAD
 from app.services.evaluation_log_service import create_evaluation_log
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
 
 def evaluate_flag(
     db: Session,
@@ -73,6 +79,7 @@ def evaluate_flag(
             result,
         )
 
+<<<<<<< HEAD
         create_evaluation_log(
             db=db,
             flag_id=flag.id,
@@ -81,6 +88,8 @@ def evaluate_flag(
             result=False,
         )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
         return result
 
     # -------------------------
@@ -88,10 +97,14 @@ def evaluate_flag(
     # -------------------------
     environment = (
         db.query(Environment)
+<<<<<<< HEAD
         .filter(
             func.lower(Environment.name)
             == environment_name.lower()
         )
+=======
+        .filter(Environment.name == environment_name)
+>>>>>>> bcd60838 (MILESTONE 2)
         .first()
     )
 
@@ -132,6 +145,7 @@ def evaluate_flag(
             result,
         )
 
+<<<<<<< HEAD
         create_evaluation_log(
             db=db,
             flag_id=flag.id,
@@ -140,6 +154,8 @@ def evaluate_flag(
             result=enabled,
         )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
         return result
 
     # -------------------------
@@ -172,6 +188,7 @@ def evaluate_flag(
             result,
         )
 
+<<<<<<< HEAD
         create_evaluation_log(
             db=db,
             flag_id=flag.id,
@@ -180,6 +197,8 @@ def evaluate_flag(
             result=True,
         )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
         return result
 
     # -------------------------
@@ -220,6 +239,7 @@ def evaluate_flag(
                 result,
             )
 
+<<<<<<< HEAD
             create_evaluation_log(
                 db=db,
                 flag_id=flag.id,
@@ -228,6 +248,8 @@ def evaluate_flag(
                 result=True,
             )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
             return result
 
     # -------------------------
@@ -255,6 +277,7 @@ def evaluate_flag(
         result,
     )
 
+<<<<<<< HEAD
     create_evaluation_log(
         db=db,
         flag_id=flag.id,
@@ -263,4 +286,6 @@ def evaluate_flag(
         result=enabled,
     )
 
+=======
+>>>>>>> bcd60838 (MILESTONE 2)
     return result

@@ -110,7 +110,7 @@ backend/
   .env.example
 ```
 
-## Notes for production
+## **Notes for production 
 
 - Switch `Base.metadata.create_all` to Alembic migrations.
 - `evaluate_flag` is intentionally unauthenticated (it's the SDK-facing
